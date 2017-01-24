@@ -3,9 +3,9 @@ import logging
 import os
 import traceback
 from nose2.events import Plugin
-from jinja2 import Template
+from datetime import datetime
 
-from .render import generate_report
+from .render import load_template, render_template
 
 logger = logging.getLogger(__name__)
 
@@ -98,6 +98,11 @@ class HTMLReporter(Plugin):
             'test_report_title': 'Test Report',
             'test_summary': self.summary_stats,
             'test_results': sorted_test_results,
-            'autocomplete_terms': json.dumps(self._generate_search_terms())
+            'autocomplete_terms': json.dumps(self._generate_search_terms()),
+            'timestamp': datetime.utcnow().strftime('%Y/%m/%d %H:%M:%S UTC')
         }
-        generate_report(self._config['report_path'], self._config['template'], context)
+        template = load_template(self._config['template'])
+        rendered_template = render_template(template, context)
+        with open(self._config['template'], 'w') as template_file:
+            template_file.write(rendered_template)
+
