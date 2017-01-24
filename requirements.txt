@@ -1,4 +1,5 @@
 Jinja2==2.9.4
 MarkupSafe==0.23
 nose2==0.6.5
+python-coveralls==2.9.0
 six==1.10.0
