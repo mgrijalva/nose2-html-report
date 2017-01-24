@@ -16,10 +16,8 @@ class HTMLReporter(Plugin):
 
     def __init__(self, *args, **kwargs):
         super(HTMLReporter, self).__init__(*args, **kwargs)
-        self._summary = {
-            'total': 0
-        }
-        self._test_results = []
+        self.summary_stats = {'total': 0}
+        self.test_results = []
 
         default_template = os.path.join(os.path.dirname(__file__), 'templates', 'report.html')
 
@@ -29,7 +27,7 @@ class HTMLReporter(Plugin):
         }
 
     def _sort_test_results(self):
-        return sorted(self._test_results, key=lambda x: x['name'])
+        return sorted(self.test_results, key=lambda x: x['name'])
 
     def _generate_search_terms(self):
         """
@@ -47,7 +45,7 @@ class HTMLReporter(Plugin):
         """
         search_terms = {}
 
-        for test_result in self._test_results:
+        for test_result in self.test_results:
             # search for the test name itself maps to the test case
             search_terms[test_result['name']] = test_result['name']
 
@@ -75,13 +73,13 @@ class HTMLReporter(Plugin):
                 exception_traceback = event.exc_info[2]
                 formatted_traceback = ''.join(traceback.format_exception(exception_type, exception_message, exception_traceback))
 
-        if event.outcome in self._summary:
-            self._summary[event.outcome] += 1
+        if event.outcome in self.summary_stats:
+            self.summary_stats[event.outcome] += 1
         else:
-            self._summary[event.outcome] = 1
-        self._summary['total'] += 1
+            self.summary_stats[event.outcome] = 1
+        self.summary_stats['total'] += 1
 
-        self._test_results.append({
+        self.test_results.append({
             'name': test_case_import_path,
             'description': test_case_doc,
             'result': event.outcome,
@@ -98,7 +96,7 @@ class HTMLReporter(Plugin):
 
         context = {
             'test_report_title': 'Test Report',
-            'test_summary': self._summary,
+            'test_summary': self.summary_stats,
             'test_results': sorted_test_results,
             'autocomplete_terms': json.dumps(self._generate_search_terms())
         }
