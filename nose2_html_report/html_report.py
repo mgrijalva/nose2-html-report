@@ -19,11 +19,9 @@ class HTMLReporter(Plugin):
         self.summary_stats = {'total': 0}
         self.test_results = []
 
-        default_template = os.path.join(os.path.dirname(__file__), 'templates', 'report.html')
-
         self._config = {
-            'report_path': os.path.abspath(self.config.as_str('path') or 'report.html'),
-            'template': os.path.abspath(self.config.as_str('template') or default_template)
+            'report_path': os.path.realpath(self.config.as_str('path', default='report.html')),
+            'template': os.path.join(os.path.dirname(__file__), 'templates', 'report.html')
         }
 
     def _sort_test_results(self):
