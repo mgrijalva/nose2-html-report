@@ -5,6 +5,7 @@ from nose2.session import Session
 
 from nose2_html_report.html_report import HTMLReporter
 
+
 def _test_func():
     """
     A dummy test function.

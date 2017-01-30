@@ -3,6 +3,7 @@
 """
 from jinja2 import Template
 
+
 def load_template(template_file_path):
     """
     Load a Jinja2 template and return it
@@ -14,6 +15,7 @@ def load_template(template_file_path):
         Template: contains jinja2 template
     """
     return Template(open(template_file_path).read())
+
 
 def render_template(template, context):
     """

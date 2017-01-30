@@ -69,7 +69,8 @@ class HTMLReporter(Plugin):
                 exception_type = event.exc_info[0]
                 exception_message = event.exc_info[1]
                 exception_traceback = event.exc_info[2]
-                formatted_traceback = ''.join(traceback.format_exception(exception_type, exception_message, exception_traceback))
+                formatted_traceback = ''.join(traceback.format_exception(
+                    exception_type, exception_message, exception_traceback))
 
         if event.outcome in self.summary_stats:
             self.summary_stats[event.outcome] += 1
@@ -81,7 +82,7 @@ class HTMLReporter(Plugin):
             'name': test_case_import_path,
             'description': test_case_doc,
             'result': event.outcome,
-            'traceback': formatted_traceback    
+            'traceback': formatted_traceback
         })
 
     def afterSummaryReport(self, event):
@@ -103,4 +104,3 @@ class HTMLReporter(Plugin):
         rendered_template = render_template(template, context)
         with open(self._config['report_path'], 'w') as template_file:
             template_file.write(rendered_template)
-
