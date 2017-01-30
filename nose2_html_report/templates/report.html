@@ -86,7 +86,7 @@
                         <a id="filter-error" data-filter-result="error" class="waves-effect waves-light btn-flat"><i class="material-icons left">error</i>Error</a>
                         <a id="filter-skip" data-filter-result="skipped" class="waves-effect waves-light btn-flat"><i class="material-icons left">warning</i>Skipped</a>
                     </div>
-                    <ul class="collapsible popout" data-collapsible="accordian">
+                    <ul class="collapsible" data-collapsible="accordian">
                         {% for test_result in test_results %}
                             <li data-filter-result="{{ test_result.result }}" data-search-key="{{ test_result.name }}">
                                 <div class="collapsible-header test-case--{{ test_result.result }}">
@@ -106,7 +106,7 @@
                                     {% if test_result.description %}
                                         <p>{{ test_result.description.replace('\n', '<br/>') }}</p>
                                     {% else %}
-                                        <em>This test has no docstring...</em>
+                                        <p><em>This test has no docstring...</em></p>
                                     {% endif %}
 
                                     <strong>Result: {{ test_result.result }}</strong>
