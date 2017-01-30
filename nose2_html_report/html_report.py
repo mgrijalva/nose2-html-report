@@ -103,6 +103,6 @@ class HTMLReporter(Plugin):
         }
         template = load_template(self._config['template'])
         rendered_template = render_template(template, context)
-        with open(self._config['template'], 'w') as template_file:
+        with open(self._config['report_path'], 'w') as template_file:
             template_file.write(rendered_template)
 
