@@ -10,6 +10,9 @@ setup(
     author_email='michaelgrij@gmail.com',
     license='MIT',
     install_requires=['jinja2'],
+    package_data={
+        'nose2_html_report': ['templates/report.html']
+    },
     url='https://github.com/mgrijalva/nose2-html-report',
     download_url='',
     keywords=['nose2', 'testing', 'reporting'],
