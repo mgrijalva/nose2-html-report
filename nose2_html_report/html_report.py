@@ -2,6 +2,7 @@ import json
 import logging
 import os
 import traceback
+import unittest
 from nose2.events import Plugin
 from datetime import datetime
 
@@ -61,10 +62,15 @@ class HTMLReporter(Plugin):
         Reports the outcome of each test
         """
         test_case_import_path = event.test.id()
-        test_case_doc = event.test._testMethodDoc
+
+        # Ignore _ErrorHolder (for arbitrary errors like module import errors),
+        # as there will be no doc string in these scenarios
+        test_case_doc = None
+        if not isinstance(event.test, unittest.suite._ErrorHolder):
+            test_case_doc = event.test._testMethodDoc
 
         formatted_traceback = None
-        if event.outcome == 'failed':
+        if event.outcome in ['failed', 'error']:
             if event.exc_info:
                 exception_type = event.exc_info[0]
                 exception_message = event.exc_info[1]

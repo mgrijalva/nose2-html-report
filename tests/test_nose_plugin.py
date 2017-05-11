@@ -90,3 +90,22 @@ class NosePluginTests(unittest.TestCase):
 
         self.assertIn('passed', reporter.summary_stats)
         self.assertEqual(reporter.summary_stats['total'], 20)
+
+    def test_outcome_with_error_test_result(self):
+        test_function = _test_func_fail
+        try:
+            test_function()
+        except:
+            exc_info = sys.exc_info()
+        ev = events.TestOutcomeEvent(test_function, None, result.ERROR, exc_info=exc_info)
+
+        reporter = create_plugin_instance()
+        reporter.testOutcome(ev)
+
+        self.assertEqual(len(reporter.test_results), 1, 'Actual contents: %s' % reporter.test_results)
+        test_result = reporter.test_results[0]
+        self.assertEqual(test_result['result'], result.ERROR)
+        self.assertEqual(test_result['name'], test_function.__name__)
+        self.assertEqual(test_result['description'], test_function.__doc__)
+        self.assertIsNotNone(test_result['traceback'])
+        self.assertIn('assert 1 == 2', test_result['traceback'])
