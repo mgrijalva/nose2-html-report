@@ -3,7 +3,7 @@ from setuptools import setup
 setup(
     name='nose2_html_report',
     packages=['nose2_html_report'],
-    version='0.3.0',
+    version='0.4.0',
     description='Generate an HTML report for your unit tests',
     long_description=open('README.md', 'r').read(),
     author='Michael Grijalva',
