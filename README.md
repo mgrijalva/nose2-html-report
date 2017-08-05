@@ -34,7 +34,7 @@ plugins = nose2_html_report.html_report
 
 [html-report]
 always-on = True
-report_path = test_results/my_custom_report_file.html
+path = test_results/my_custom_report_file.html
 ```
 
 ### Usage
