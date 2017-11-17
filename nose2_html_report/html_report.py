@@ -1,5 +1,6 @@
 import json
 import logging
+import copy
 import os
 import traceback
 import unittest
@@ -88,7 +89,8 @@ class HTMLReporter(Plugin):
             'name': test_case_import_path,
             'description': test_case_doc,
             'result': event.outcome,
-            'traceback': formatted_traceback
+            'traceback': formatted_traceback,
+            'metadata': copy.copy(event.metadata)
         })
 
     def afterSummaryReport(self, event):
