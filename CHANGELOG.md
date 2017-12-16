@@ -1,5 +1,8 @@
 # Change Log
 
+## [0.6.0] - 2017-12-16
+- [#5](https://github.com/mgrijalva/nose2-html-report/pull/5) add metadata to template context ([artragis](https://github.com/artragis))
+
 ## [0.5.0] - 2017-08-05
 - Fix typo in documentation. `report_path` should have been `path`.
 
