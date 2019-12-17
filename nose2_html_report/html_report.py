@@ -106,7 +106,7 @@ class HTMLReporter(Plugin):
             'test_report_title': 'Test Report',
             'test_summary': self.summary_stats,
             'test_results': sorted_test_results,
-            'autocomplete_terms': json.dumps(self._generate_search_terms()),
+            'autocomplete_terms': json.dumps(self._generate_search_terms(), ensure_ascii=False),
             'timestamp': datetime.utcnow().strftime('%Y/%m/%d %H:%M:%S UTC')
         }
         template = load_template(self._config['template'])
