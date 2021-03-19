@@ -1,5 +1,5 @@
 coverage==4.0.3
-Jinja2==2.9.4
+Jinja2==2.11.3
 MarkupSafe==0.23
 nose2==0.6.5
 python-coveralls==2.9.0
